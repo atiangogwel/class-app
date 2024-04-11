@@ -13,6 +13,9 @@ bcrypt (for password hashing)
 jsonwebtoken (for generating and verifying JWT tokens)
 
 Instructions
-Install dependencies:npm install
-navigate to server: run node index.js
+
+Install dependencies:
+npm install
+navigate to server:
+run: node index.js
 
