@@ -2,7 +2,13 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
+
+// route for /logout
+app.get('/signout', (req, res) => {
+  // Redirect to the login page
+  res.redirect('/login');
+});
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, '..', 'public')));

@@ -1,4 +1,4 @@
-JavaScript Authentication API Example
+JavaScript Authentication API
 This is a basic JavaScript application that demonstrates user authentication using an API. The application allows users to log in using their credentials and provides access to protected resources upon successful authentication.
 
 Features

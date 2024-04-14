@@ -12,25 +12,27 @@
             <h1 class="logo">YurRecipe</h1>
             <ul class="nav-links">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Recipes</a></li>
-                <li><a href="#">Submit Recipe</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="/register">Register</a></li>
-                <li><a href="/login">Login</a></li>
+                <li><a href="/signout" id="logoutButton">signout</a></li>
+                <li><div id="welcomeMessage"></div></li>
             </ul>
         </div>
     </nav>
 
     <main>
-        <div class="container">
-<h2>This is the home page</h2>
-        </div>
     </main>
-
+    <script>
+        // Retrieve names from local storage
+        const lastName = localStorage.getItem('last_name');
+        const firstName = localStorage.getItem('first_name');
+    
+        // Display welcome message
+        document.getElementById('welcomeMessage').innerText = `Welcome, ${firstName} ${lastName}!`;
+      </script>
+      
     <footer class="footer">
         <p class="centered-text"> <strong> &copy; 2024 YurRecipe </p></strong>
     </footer>
-      
-      
 </body>
 </html>
