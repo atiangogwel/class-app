@@ -12,11 +12,11 @@ Express.js
 bcrypt (for password hashing)
 jsonwebtoken (for generating and verifying JWT tokens)
 
-Instructions
+**Instructions**
 
 **Install dependencies:**
-
-  npm install
+1. npm install (Within the root folder)
+   
 **Run Application**
 1. navigate to server
 
