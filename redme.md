@@ -16,7 +16,7 @@ Instructions
 
 **Install dependencies:**
 
-npm install
+  npm install
 **Run Application**
 1. navigate to server
 
