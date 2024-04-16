@@ -1,5 +1,5 @@
 JavaScript Authentication
-This is a basic JavaScript application that demonstrates user authentication using an API. The application allows users to log in using their credentials and provides access to protected resources upon successful authentication.
+This is a basic JavaScript (Front end) application that demonstrates user authentication using an API. The application allows users to log in using their credentials and provides access to protected pages upon successful authentication.
 
 Features
 User login: Users can log in using their email and password.
@@ -14,8 +14,11 @@ jsonwebtoken (for generating and verifying JWT tokens)
 
 Instructions
 
-Install dependencies:
+**Install dependencies:**
+
 npm install
-navigate to server:
-run: node index.js
+**Run Application**
+1. navigate to server
+
+2. run: node index.js
 
