@@ -65,12 +65,13 @@ function editRecipe(recipeId) {
       
     });
 }
+
 function loadAllRecipes(){
   document.getElementById('recipeCategoryTitle').textContent = 'All Recipes';
   const recipesContainer = document.querySelector('.card-body');
 
   
-  // Make a GET request to fetch recipes for the user
+  // Make a GET request to fetch all recipes 
   fetch(`http://localhost:3000/recipes`)
     .then(response => {
       if (!response.ok) {

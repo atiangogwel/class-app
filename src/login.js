@@ -41,6 +41,8 @@ async function handleLogin(event) {
     }
   } catch (error) {
     console.error('Error:', error);
+    displayErrorMessage('An error occurred while processing your request. Please try again.');
+
   }
 }
 
@@ -60,6 +62,7 @@ function displayErrorMessage(message) {
   const errorMessageElement = document.getElementById('errorMessage');
   if (errorMessageElement !== null) {
     errorMessageElement.textContent = message;
+    errorMessageElement.style.display = 'block';
   }
 }
 
@@ -68,6 +71,3 @@ document.addEventListener("DOMContentLoaded", function() {
   const loginForm = document.getElementById("loginForm");
   loginForm.addEventListener("submit", handleLogin);
 });
-
-// Export the handleLogin function for testing
-module.exports = handleLogin;
