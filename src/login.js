@@ -25,9 +25,11 @@ async function handleLogin(event) {
       const tokenPayload = parseJwt(responseData.token);
       const lastName = tokenPayload.last_name;
       const firstName = tokenPayload.first_name;
+      const userID = tokenPayload.userID;
 
       localStorage.setItem('last_name', lastName);
       localStorage.setItem('first_name', firstName);
+      localStorage.setItem('userID', userID);
 
       window.location.href = 'home.html';
     } else {

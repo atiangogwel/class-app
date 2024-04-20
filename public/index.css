@@ -139,3 +139,21 @@ form {
   button[type="submit"]:hover {
     background-color: #0056b3;
   }
+  /* Flash message styling */
+.flash-message {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  padding: 10px;
+  background-color: #00ff6a;
+  color: #fff;
+  text-align: center;
+  z-index: 1000;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.flash-message.show {
+  opacity: 1;
+}

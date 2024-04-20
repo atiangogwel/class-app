@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YurRecipe</title>
     <link rel="stylesheet" href="index.css"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
     <nav>
@@ -12,27 +14,111 @@
             <h1 class="logo">YurRecipe</h1>
             <ul class="nav-links">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="#" onclick="loadAllRecipes()">All Recipes</a></li>
+                <li><a href="">My Recipes</a></li>
                 <li><a href="/register">Register</a></li>
                 <li><a href="/signout" id="logoutButton">signout</a></li>
+
                 <li><div id="welcomeMessage"></div></li>
-            </ul>
+            </ul
         </div>
     </nav>
 
     <main>
-    </main>
-    <script>
-        // Retrieve names from local storage
-        const lastName = localStorage.getItem('last_name');
-        const firstName = localStorage.getItem('first_name');
-    
-        // Display welcome message
-        document.getElementById('welcomeMessage').innerText = `Welcome, ${firstName} ${lastName}!`;
-      </script>
+      <div class="container d-flex align-items-center">
+        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addrecipeModal">
+          Add Recipe
+        </button>
+        <input style="width: 10em" oninput="searchRecipes()" id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search Recipes" aria-label="Search">
+      </div>
       
+ 
+      <div id="messageContainer" class="flash-message"></div>
+        <div class="container mt-4">
+            <div class="card">
+              <div id="recipeCategoryTitle" class="card-header">My Recipes</div>
+              <div class="card-body" id="recipesContainer">
+                <!-- Recipe cards will be dynamically generated here -->
+            </div>
+            </div>
+            <div id="noResultsMessage" style="display: none;">No search results found.</div>
+
+          </div>
+
+          <!-- edit recipe modal -->
+          <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="recipeModalLabel">Edit Recipe</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <input type="hidden" id="recipeId">
+                  <div id="recipeDetails">
+                    <p><strong>Recipe ID:</strong> <span id="recipeIdDisplay"></span></p>
+                    <label for="recipeName">Recipe Name:</label>
+                    <input type="text" id="recipeName" class="form-control mb-3">
+                    
+                    <label for="ingredients">Ingredients:</label>
+                    <textarea id="ingredients" class="form-control mb-3" rows="3"></textarea>
+                    
+                    <label for="instructions">Instructions:</label>
+                    <textarea id="instructions" class="form-control" rows="5"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" onclick="UpdateRecipe()">Save Changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- add recipe modal -->
+          <div class="modal fade" id="addrecipeModal" tabindex="-1" role="dialog" aria-labelledby="AddrecipeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addrecipeModalLabel">Add Recipe</h5> <!-- Corrected modal title ID -->
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div id="recipeDetails">
+                    <label for="recipeName">Recipe Name:</label>
+                    <input type="text" id="add_recipeName" class="form-control mb-3">
+                    
+                    <label for="ingredients">Ingredients:</label>
+                    <textarea id="add_ingredients" class="form-control mb-3" rows="3"></textarea>
+                    
+                    <label for="instructions">Instructions:</label>
+                    <textarea id="add_instructions" class="form-control" rows="5"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" onclick="AddRecipe()">Save Recipe</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <script>
+            // Retrieve names from local storage
+            const lastName = localStorage.getItem('last_name');
+            const firstName = localStorage.getItem('first_name');
+            //const userId = localStorage.getItem('userID');
+            document.getElementById('welcomeMessage').innerText = `Welcome, ${firstName} ${lastName}!`;
+
+          </script>
+          
     <footer class="footer">
         <p class="centered-text"> <strong> &copy; 2024 YurRecipe </p></strong>
     </footer>
+
+    <script src="../src/ProcessRecipe.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
