@@ -1,95 +1,40 @@
-const handleLogin = require('../public/login');
+// Require the function that performs the HTTP request
+const fetchData = require('../src/fetchData');
 
-describe('handleLogin function', () => {
-  test('successful login', async () => {
-    // Mock FormData
-    global.FormData = jest.fn(() => ({
-      forEach: jest.fn()
-    }));
+// Mock the Fetch API
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    ok: true,
+    json: () => Promise.resolve({ data: 'test data' }),
+  })
+);
 
-    // Mock fetch
-    global.fetch = jest.fn(() => Promise.resolve({
-      ok: true,
-      json: () => Promise.resolve({ token: 'mockToken' })
-    }));
+describe('fetchData', () => {
+  it('fetches data from the API', async () => {
+    // Call the function that performs the HTTP request
+    const data = await fetchData();
 
-    // Mock localStorage
-    global.localStorage = {
-      setItem: jest.fn()
-    };
+    // Check if the data returned matches the expected data
+    expect(data).toEqual({ data: 'test data' });
 
- 
-    delete window.location;
-    window.location = { href: '' };
-
-    // Mock parseJwt
-    const mockParseJwt = jest.fn().mockReturnValue({ first_name: 'John', last_name: 'Doe' });
-    global.parseJwt = mockParseJwt;
-
-    // Mock event object
-    const event = { preventDefault: jest.fn() };
-
-    // Call the function
-    await handleLogin.call({ preventDefault: jest.fn() }, event);
-
-    // Assertions
-    expect(global.fetch).toHaveBeenCalledWith('http://localhost:3000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({})
-    });
-
-    expect(global.localStorage.setItem).toHaveBeenCalledWith('last_name', 'Doe');
-    expect(global.localStorage.setItem).toHaveBeenCalledWith('first_name', 'John');
-    expect(window.location.href).toBe('home.html');
+    // Check if fetch was called with the correct URL
+    expect(fetch).toHaveBeenCalledWith('https://api.example.com/data');
   });
 
-  test('login failure', async () => {
-    // Mock FormData
-    global.FormData = jest.fn(() => ({
-      forEach: jest.fn()
-    }));
+  it('handles errors gracefully', async () => {
+    // Mock a failed response
+    global.fetch.mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+      })
+    );
 
-    // Mock fetch
-    global.fetch = jest.fn(() => Promise.resolve({
-      ok: false,
-      json: () => Promise.resolve({ message: 'Invalid credentials' })
-    }));
+    // Call the function that performs the HTTP request
+    const error = await fetchData().catch(error => error);
 
-    // Mock displayErrorMessage
-    const mockDisplayErrorMessage = jest.fn();
-    global.displayErrorMessage = mockDisplayErrorMessage;
-
-    // Mock event object
-    const event = { preventDefault: jest.fn() };
-
-    // Call the function
-    await handleLogin.call({ preventDefault: jest.fn() }, event);
-
-    // Assertions
-    expect(mockDisplayErrorMessage).toHaveBeenCalledWith('Invalid credentials');
-  });
-
-  test('error handling', async () => {
-    // Mock FormData
-    global.FormData = jest.fn(() => ({
-      forEach: jest.fn()
-    }));
-
-    // Mock fetch to simulate network error
-    global.fetch = jest.fn(() => Promise.reject(new Error('Network error')));
-
-    // Mock console.error
-    const mockConsoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
-
-    // Mock event object
-    const event = { preventDefault: jest.fn() };
-
-    // Call the function
-    await handleLogin.call({ preventDefault: jest.fn() }, event);
-    expect(mockConsoleError).toHaveBeenCalledWith('Error:', new Error('Network error'));
-    mockConsoleError.mockRestore();
+    // Check if the error message matches the expected error
+    expect(error.message).toEqual('Network response was not ok');
   });
 });

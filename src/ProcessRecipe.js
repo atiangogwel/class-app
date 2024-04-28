@@ -155,6 +155,7 @@ function loadRecipes() {
                 <div class="card-body">
                   <h5 class="card-title">${recipe.name}</h5>
                   <ul>${instructionList}</ul>
+                  <button class="btn btn-warning" onclick="viewreviews(${recipe.recipe_id})">View Reviews</button>
                   <button class="btn btn-success mr-2" onclick="editRecipe(${recipe.recipe_id})">Edit</button>
                   <button class="btn btn-danger" onclick="deleteRecipe(${recipe.recipe_id})">Delete</button>
                 </div>
@@ -303,7 +304,6 @@ function searchRecipes() {
     noResultsMessage.style.display = 'none'; // Hide the no results message
   }
 }
-
 
 
 // Call loadRecipes function to initially load recipes

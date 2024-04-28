@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YurRecipe</title>
     <link rel="stylesheet" href="index.css"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body>
     <nav>
@@ -13,37 +17,67 @@
             <ul class="nav-links">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Recipes</a></li>
-                <li><a href="#">Submit Recipe</a></li>
-                <li><a href="#">About</a></li>
                 <li><a href="/register">Register</a></li>
                 <li><a href="/login">Login</a></li>
+                <input style="width: 10em" oninput="searchRecipes()" id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search Recipes" aria-label="Search">
+
             </ul>
         </div>
     </nav>
 
     <main>
+        
         <div class="container">
             <div class="about-section">
                 <h2>About YurRecipe</h2>
                 <p>Welcome to YurRecipe! We are dedicated to providing you with delicious and easy-to-follow recipes for all occasions.</p>
                 <p>Our mission is to inspire home cooks to explore new flavors and techniques in the kitchen.</p>
-            </div>
+            <h2>Latest Recipes</h2>
+            <div class="recipecon">
+                <div id="messageContainer" class="flash-message"></div>
+                <div class="container mt-4">
+                    <div class="card">
+                      <div id="recipeCategoryTitle" class="card-header">My Recipes</div>
+                      <div class="card-body" id="recipesContainer">
+                        <!-- Recipe cards will be dynamically generated here -->
+                    </div>
+                    </div>
+                    <div id="noResultsMessage" style="display: none; color: red;">No search results found.</div>
+        
+                </div>
             
-            <div class="sidebar">
-                <h2>Latest Recipes</h2>
-                <ul>
-                    <li>Recipe 1</li>
-                    <li>Recipe 2</li>
-                    <li>Recipe 3</li>
-                </ul>
+            </div>
             </div>
         </div>
+                  <!--view reviews-- Modal -->
+                  <div class="modal fade" id="viewReviewsModal" tabindex="-1" aria-labelledby="viewReviewsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="viewReviewsModalLabel">Recipe Reviews</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="reviewList">
+                          <!-- Reviews will be displayed here -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
     </main>
+    <script src="../src/ProcessRecipe.js"></script>
+    <script src="../src/reviews.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <footer class="footer">
         <p class="centered-text"> <strong> &copy; 2024 YurRecipe </p></strong>
     </footer>
       
-      
+    <script>
+        // Call loadRecipes() on page load using window.onload
+        window.onload = function() {
+            loadAllRecipes();
+        };
+
+    </script>
 </body>
 </html>
