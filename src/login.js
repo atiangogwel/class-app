@@ -37,10 +37,8 @@ async function handleLogin(event) {
       const errorData = await response.json();
       const errorMessage = errorData.message || 'Login failed';
       displayErrorMessage(errorMessage);
-      console.error('Login failed:', errorMessage);
     }
   } catch (error) {
-    console.error('Error:', error);
     displayErrorMessage('An error occurred while processing your request. Please try again.');
 
   }
@@ -71,3 +69,4 @@ document.addEventListener("DOMContentLoaded", function() {
   const loginForm = document.getElementById("loginForm");
   loginForm.addEventListener("submit", handleLogin);
 });
+module.exports = { handleLogin}

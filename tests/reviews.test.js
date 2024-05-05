@@ -12,7 +12,9 @@ describe('viewreviews function', () => {
     beforeEach(() => {
       fetchMock.resetMocks();
     });
-  
+    const reviewList = document.createElement('div');
+    reviewList.id = 'reviewList';
+    document.body.appendChild(reviewList);
     it('fetches and displays reviews correctly', async () => {
         // Define sample data for testing
         const recipeId = '1';

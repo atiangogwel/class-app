@@ -1,8 +1,12 @@
 const express = require('express');
+const https = require('https');
+const http = require('http');
+const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const httpPort = 5000;
+const httpsPort = 4443;
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -24,7 +28,19 @@ app.get('/signout', (req, res) => {
   res.redirect('/login');
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+// HTTP server
+const httpServer = http.createServer(app);
+httpServer.listen(httpPort, () => {
+  console.log(`HTTP Server started on port ${httpPort}`);
+});
+
+// HTTPS server
+const httpsOptions = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('certificate.pem')
+};
+
+const httpsServer = https.createServer(httpsOptions, app);
+httpsServer.listen(httpsPort, () => {
+  console.log(`HTTPS Server started on port ${httpsPort}`);
 });

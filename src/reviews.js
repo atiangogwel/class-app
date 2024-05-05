@@ -108,4 +108,4 @@ function addReview(recipeId) {
       console.error('Error adding review:', error);
     });
   }
-  module.exports = { viewreviews };
+  module.exports = { viewreviews, submitReview, addReview};
